@@ -1,3 +1,5 @@
+import random
+
 BOARD = ["1", "2", "3",
          "4", "5", "6",
          "7", "8", "9"]
@@ -7,6 +9,7 @@ board_start = ["1", "2", "3",
 CURRENT_PLAYER = "X"
 WINNER = None
 GAME_RUNNING = True
+num_of_players = int(input("Type the number of players (1 or 2): "))
 
 
 # printing the game board
@@ -94,9 +97,32 @@ def player_switch():
         CURRENT_PLAYER = "X"
 
 
+def computer(board):
+    while CURRENT_PLAYER == "O":
+        position = random.randint(0, 8)
+        if board[position] != "X":
+            board[position] = "O"
+            player_switch()
+
+
 while GAME_RUNNING:
-    print_board(BOARD)
-    player_input(BOARD)
-    check_win(BOARD)
-    check_tie(BOARD)
-    player_switch()
+    if num_of_players == 1:
+        print_board(BOARD)
+        player_input(BOARD)
+        check_win(BOARD)
+        check_tie(BOARD)
+        player_switch()
+    if num_of_players == 2:
+        print_board(BOARD)
+        player_input(BOARD)
+        check_win(BOARD)
+        check_tie(BOARD)
+        player_switch()
+        computer(BOARD)
+        check_win(BOARD)
+        check_tie(BOARD)
+    if num_of_players <= 0 or num_of_players > 2:
+        print("Only inputs allowed are '1' or '2'")
+        num_of_players = int(input("Type the number of players (1 or 2): "))
+
+
